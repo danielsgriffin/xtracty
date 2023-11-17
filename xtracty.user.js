@@ -131,7 +131,7 @@
         }
 
         // Check if there are images
-        if (images.length > 0) {
+        if (images && images.length > 0) {
 
             // Get the user's directory preference from local storage
             var dir = localStorage.getItem('imageDirectoryPreference');
@@ -296,7 +296,7 @@
 
         var imagesListAsStr = '';
         var images = data['Images']
-        if (images.length > 0) {
+        if (images && images.length > 0) {
             imagesListAsStr = convertImagesArrayToYaml(images);
         }
         const username = data['Username'];
