@@ -171,7 +171,7 @@
             var imageFilenames = []
             // Download each image
             images.forEach(function (imageUrl) {
-                
+
                 // Extract the image path from the URL
                 var imagePath = imageUrl.split('/').pop();
                 // Remove everything to the right of a '?', inclusive
@@ -261,25 +261,25 @@
 
     function convertToYaml(data) {
 
-    /*
-    * Here is the code from _includes/weblinks.html that the images field has to integrate with:
-    * {% if weblink.images %}
-    * {% for image in weblink.images %}
-    * <img src="/images/{{ image[0] }}" class="card-img-bottom border p-0 m-0" alt="{{ image[1] | escape }}">
-    * {% endfor %}
-    * {% endif %}
-    * {% if weblink.images %}
-    * {% for image in weblink.images %}
-    * <img src="/images/{{ image[0] }}" class="card-img-bottom border p-0 m-0" alt="{{ image[1] | escape }}">
-    * {% endfor %}
-    * {% endif %}
-    *
-    * Here is an example of a single item images array in weblinks.yml:
-    * ```
-    *   images:
-    *     - ["F40voNGa4AAGiQI.png", "The word 'skip' is highlighted in the sentence: The robot is not, in my opinion, a skip."]
-    * ```
-    */
+        /*
+        * Here is the code from _includes/weblinks.html that the images field has to integrate with:
+        * {% if weblink.images %}
+        * {% for image in weblink.images %}
+        * <img src="/images/{{ image[0] }}" class="card-img-bottom border p-0 m-0" alt="{{ image[1] | escape }}">
+        * {% endfor %}
+        * {% endif %}
+        * {% if weblink.images %}
+        * {% for image in weblink.images %}
+        * <img src="/images/{{ image[0] }}" class="card-img-bottom border p-0 m-0" alt="{{ image[1] | escape }}">
+        * {% endfor %}
+        * {% endif %}
+        *
+        * Here is an example of a single item images array in weblinks.yml:
+        * ```
+        *   images:
+        *     - ["F40voNGa4AAGiQI.png", "The word 'skip' is highlighted in the sentence: The robot is not, in my opinion, a skip."]
+        * ```
+        */
         // Convert the images array to a string that functions as an array in YAML
         function convertImagesArrayToYaml(images) {
             var imagesListAsStr = `
@@ -306,7 +306,7 @@
         const fullDatetime = new Date(data['Full Datetime']);
         const dateStr = fullDatetime.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         let lines = text.split('\n');
-        let newText = lines.map(line => '    ' + line).join('\n');
+        let newText = lines.map(line => '    ' + line).join('<br>\n');
         let yamlItem = `${tweetUrl}:
   username: ${username}
   name: ${name}
