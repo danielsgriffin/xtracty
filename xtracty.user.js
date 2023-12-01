@@ -22,8 +22,8 @@
         // Extract the username from the tweet link
         var username = tweetLink.split('/')[3];
 
-        // Extract the status_id from the tweet link
-        var status_id = tweetLink.split('/')[5];
+        // Extract the statusID from the tweet link
+        var statusID = tweetLink.split('/')[5];
 
         // Extract the name
         var nameElement = document.querySelector('a[href="/' + username + '"] div[dir="ltr"] > span:first-child > span');
@@ -33,9 +33,33 @@
         }
         console.log("xtracty:name=", name);
 
-        // Extract the full datetime from the <time> element
-        var dateElement = document.querySelector('time');
-        var fullDatetime = dateElement ? dateElement.getAttribute('datetime') : "Date not found";
+
+        function get_datetime(tweetLink) {
+            let datetime;
+            // get all anchor elements
+            let a = document.getElementsByTagName('a');
+            // filter all anchor elements for anchors with href attr matching the statusID, check all TIME elements in children of those anchors for datetime attr
+            for (let i = 0; i < a.length; i++) {
+                if (a[i].href.includes(statusID)) {
+                    // check for time element in children
+                    let children = a[i].children;
+                    for (let j = 0; j < children.length; j++) {
+                        if (children[j].tagName === "TIME") {
+                            datetime = children[j].getAttribute('datetime');
+                            break;
+                        }
+                    }
+                }
+            }
+            // if no datetime found, alert user of failure and crash.
+            if (!datetime) {
+                alert("xtracty: No datetime found. Please try again or submit an issue at https://github.com/danielsgriffin/xtracty/issues/new/");
+                throw new Error("xtracty: No datetime found. Please try again.");
+            }
+            return datetime;
+            
+        }    
+        let fullDatetime = get_datetime(tweetLink);
 
         // create a new URL object and get the pathname
         var tweetPath = new URL(tweetLink).pathname;
@@ -202,7 +226,7 @@
             'URL': tweetLink,
             'Username': username,
             'Name': name,
-            'Status ID': status_id,
+            'Status ID': statusID,
             'Full Datetime': fullDatetime,
             'Text': text,
             'Images': imageFilenames
